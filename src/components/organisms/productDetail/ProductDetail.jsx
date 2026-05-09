@@ -45,11 +45,11 @@ export default function ProductDetail() {
 
     if (!product) {
         return (
-            <div className="flex flex-col items-center justify-center h-64 space-y-4">
-                <p className="text-xl text-gray-600">Producto no encontrado.</p>
+            <div className="flex flex-col items-center justify-center h-64 space-y-6">
+                <p className="text-xl text-blackand-text-secondary">Producto no encontrado.</p>
                 <button
                     onClick={() => navigate('/gallery')}
-                    className="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+                    className="btn-secondary"
                 >
                     Volver a la galería
                 </button>
@@ -60,89 +60,84 @@ export default function ProductDetail() {
     const resolvedImage = imageMap[product.image] ?? product.image;
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             {/* Back button */}
             <button
                 onClick={() => navigate('/gallery')}
-                className="flex items-center gap-2 text-gray-500 hover:text-purple-600 transition-colors mb-6 group"
+                className="flex items-center gap-2 text-blackand-text-secondary hover:text-white transition-colors mb-10 text-sm tracking-wide"
             >
-                <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 Volver a la galería
             </button>
 
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div className="md:flex">
-                    {/* Image */}
-                    <div className="md:w-1/2 relative">
-                        <img
-                            src={resolvedImage}
-                            alt={product.title}
-                            className="w-full h-80 md:h-full object-cover"
-                        />
-                        <div className="absolute top-4 left-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                            NUEVO
-                        </div>
-                    </div>
+            <div className="flex flex-col md:flex-row gap-12 lg:gap-20">
+                {/* Image */}
+                <div className="md:w-1/2 relative bg-blackand-surface border border-blackand-border p-6 flex items-center justify-center aspect-[3/4]">
+                    <img
+                        src={resolvedImage}
+                        alt={product.title}
+                        className="w-full h-full object-cover shadow-2xl"
+                    />
+                </div>
 
-                    {/* Info */}
-                    <div className="md:w-1/2 p-8 flex flex-col justify-between">
-                        <div>
-                            <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.title}</h1>
+                {/* Info */}
+                <div className="md:w-1/2 flex flex-col justify-center py-6">
+                    <div>
+                        <h1 className="text-4xl lg:text-5xl font-light text-white tracking-wide mb-4 uppercase">{product.title}</h1>
 
-                            {/* Rating */}
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="text-xl">{renderStars(product.rate)}</div>
-                                <span className="text-sm text-gray-500">({product.rate} / 5)</span>
-                            </div>
-
-                            {/* Price */}
-                            <p className="text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-6">
+                        {/* Price & Rating */}
+                        <div className="flex flex-col mb-8 gap-2">
+                            <p className="text-2xl text-blackand-text-secondary font-light tracking-wider">
                                 ${product.price}
                             </p>
-
-                            {/* Description */}
-                            <p className="text-gray-600 leading-relaxed mb-8">
-                                {product.description}
-                            </p>
-                        </div>
-
-                        <div className="space-y-4">
-                            {/* Quantity selector */}
-                            <div className="flex items-center gap-4">
-                                <span className="text-sm font-medium text-gray-700">Cantidad:</span>
-                                <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
-                                    <button
-                                        onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                                        className="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors text-lg font-bold"
-                                    >
-                                        −
-                                    </button>
-                                    <span className="w-12 text-center font-semibold text-gray-900">
-                                        {quantity}
-                                    </span>
-                                    <button
-                                        onClick={() => setQuantity(q => q + 1)}
-                                        className="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors text-lg font-bold"
-                                    >
-                                        +
-                                    </button>
-                                </div>
+                            <div className="flex items-center gap-2">
+                                <div className="text-sm">{renderStars(product.rate)}</div>
+                                <span className="text-xs text-blackand-text-secondary">({product.rate} / 5)</span>
                             </div>
-
-                            {/* Add to cart button */}
-                            <button
-                                onClick={handleAddToCart}
-                                className={`w-full py-3 rounded-xl font-semibold text-white text-lg transition-all duration-300 ${
-                                    added
-                                        ? 'bg-green-500 scale-95'
-                                        : 'bg-gradient-to-r from-purple-500 via-purple-600 to-pink-500 hover:opacity-90 hover:shadow-lg hover:shadow-purple-200 active:scale-95'
-                                }`}
-                            >
-                                {added ? '✓ Agregado al carrito' : 'Agregar al carrito'}
-                            </button>
                         </div>
+
+                        {/* Description */}
+                        <p className="text-blackand-text-secondary font-light leading-relaxed mb-10 text-sm lg:text-base">
+                            {product.description}
+                        </p>
+                    </div>
+
+                    <div className="space-y-8">
+                        {/* Quantity selector */}
+                        <div className="flex items-center gap-6">
+                            <span className="text-xs uppercase tracking-wider text-blackand-text-secondary">Cantidad</span>
+                            <div className="flex items-center border border-blackand-border">
+                                <button
+                                    onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                                    className="w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+                                >
+                                    −
+                                </button>
+                                <span className="w-12 text-center text-white text-sm">
+                                    {quantity}
+                                </span>
+                                <button
+                                    onClick={() => setQuantity(q => q + 1)}
+                                    className="w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Add to cart button */}
+                        <button
+                            onClick={handleAddToCart}
+                            className={`w-full md:w-auto px-12 py-4 border transition-all duration-300 font-semibold tracking-wider text-sm uppercase ${
+                                added
+                                    ? 'bg-blackand-surface text-white border-blackand-border'
+                                    : 'bg-white text-black border-white hover:bg-gray-200'
+                            }`}
+                        >
+                            {added ? '✓ Agregado al carrito' : 'Agregar al carrito'}
+                        </button>
                     </div>
                 </div>
             </div>
