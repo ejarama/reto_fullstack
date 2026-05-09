@@ -66,46 +66,46 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      {/* Reducción de max-w y padding para evitar el scroll vertical */}
-      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden transition-all">
-        <div className="p-6 md:p-10">
+    <div className="min-h-screen flex items-center justify-center bg-blackand-bg p-4">
+      <div className="w-full max-w-4xl bg-blackand-surface border border-blackand-border transition-all">
+        <div className="p-8 md:p-12">
 
-          <header className="mb-6 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Crear cuenta</h2>
-            <p className="text-gray-500 text-sm mt-1">Únete a nuestra comunidad hoy mismo</p>
+          <header className="mb-8 text-center">
+            <h1 className="text-2xl font-bold tracking-widest uppercase text-blackand-text-primary mb-2">BlackAnd</h1>
+            <h2 className="text-xl font-light text-blackand-text-primary">Crear cuenta</h2>
+            <p className="text-blackand-text-secondary text-xs mt-1">Únete a BlackAnd Store</p>
           </header>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <div className="mb-6 p-3 bg-blackand-border border border-blackand-accent text-blackand-text-primary text-sm">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
 
-              {/* Columna Izquierda: Información Personal */}
-              <div className="space-y-4">
+              {/* Columna Izquierda */}
+              <div className="space-y-6">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Nombre completo</label>
+                  <label className="block text-xs uppercase tracking-wider text-blackand-text-secondary mb-2">Nombre completo</label>
                   <input
                     type="text"
                     name="name"
                     required
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 outline-none transition-all placeholder:text-gray-400"
-                    placeholder="Ej. Juan Pérez"
+                    className="input-blackand"
+                    placeholder="Tu nombre"
                     onChange={handleChange}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Correo electrónico</label>
+                  <label className="block text-xs uppercase tracking-wider text-blackand-text-secondary mb-2">Correo electrónico</label>
                   <input
                     type="email"
                     name="email"
                     required
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 outline-none transition-all placeholder:text-gray-400"
+                    className="input-blackand"
                     placeholder="correo@ejemplo.com"
                     onChange={handleChange}
                   />
@@ -113,21 +113,21 @@ const Register = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Celular</label>
+                    <label className="block text-xs uppercase tracking-wider text-blackand-text-secondary mb-2">Celular</label>
                     <input
                       type="tel"
                       name="cellphone"
-                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 outline-none transition-all"
+                      className="input-blackand"
                       placeholder="+57 300..."
                       onChange={handleChange}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Dirección</label>
+                    <label className="block text-xs uppercase tracking-wider text-blackand-text-secondary mb-2">Dirección</label>
                     <input
                       type="text"
                       name="address"
-                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 outline-none transition-all"
+                      className="input-blackand"
                       placeholder="Calle 123..."
                       onChange={handleChange}
                     />
@@ -135,28 +135,27 @@ const Register = () => {
                 </div>
               </div>
 
-              {/* Columna Derecha: Seguridad */}
-              <div className="space-y-4">
+              {/* Columna Derecha */}
+              <div className="space-y-6">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Contraseña</label>
+                  <label className="block text-xs uppercase tracking-wider text-blackand-text-secondary mb-2">Contraseña</label>
                   <input
                     type="password"
                     name="password"
                     required
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 outline-none transition-all"
+                    className="input-blackand"
                     placeholder="••••••••"
                     onChange={handleChange}
                   />
-                  <p className="text-[10px] text-gray-400 mt-1 italic">Mínimo 8 caracteres (letras y números).</p>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Confirmar contraseña</label>
+                  <label className="block text-xs uppercase tracking-wider text-blackand-text-secondary mb-2">Confirmar contraseña</label>
                   <input
                     type="password"
                     name="confirmPassword"
                     required
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 outline-none transition-all"
+                    className="input-blackand"
                     placeholder="••••••••"
                     onChange={handleChange}
                   />
@@ -164,17 +163,17 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Acción y Footer más compactos */}
-            <div className="pt-4 space-y-4">
+            {/* Acción */}
+            <div className="pt-6 space-y-4">
               <button
                 type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg transition-all active:scale-[0.98] text-base"
+                className="w-full btn-primary"
               >
-                Registrarse
+                CREAR CUENTA
               </button>
 
-              <p className="text-center text-sm text-gray-500">
-                ¿Ya tienes una cuenta? <Link to="/login" className="text-indigo-600 font-semibold hover:underline">Inicia sesión</Link>
+              <p className="text-center text-xs text-blackand-text-secondary">
+                ¿Ya tienes una cuenta? <Link to="/login" className="text-white hover:underline">Inicia sesión</Link>
               </p>
             </div>
           </form>

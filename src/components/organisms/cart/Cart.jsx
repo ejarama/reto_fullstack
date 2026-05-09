@@ -14,17 +14,17 @@ export default function Cart() {
 
   if (items.length === 0) {
     return (
-      <section className="max-w-4xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-2xl border border-gray-200 p-10 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Tu carrito esta vacio</h2>
-          <p className="text-gray-500 mb-6">
-            Agrega productos desde la galeria para iniciar la compra.
+      <section className="max-w-4xl mx-auto px-4 py-20">
+        <div className="bg-blackand-surface border border-blackand-border p-12 text-center">
+          <h2 className="text-2xl tracking-wide text-white mb-2 uppercase">Tu carrito está vacío</h2>
+          <p className="text-blackand-text-secondary mb-8 text-sm">
+            Agrega productos desde la galería para iniciar la compra.
           </p>
           <Link
             to="/gallery"
-            className="inline-flex px-6 py-3 rounded-lg bg-purple-600 text-white font-medium hover:opacity-90"
+            className="btn-primary inline-flex"
           >
-            Ir a productos
+            VER PRODUCTOS
           </Link>
         </div>
       </section>
@@ -32,40 +32,37 @@ export default function Cart() {
   }
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-gray-900 mb-6">Carrito de compras</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
-        <div className="bg-white rounded-2xl border border-gray-200 divide-y divide-gray-100">
+    <section className="max-w-6xl mx-auto px-4 py-12">
+      <h2 className="text-2xl font-light tracking-widest text-white mb-8 uppercase">Tu Carrito</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8">
+        <div className="bg-blackand-surface border border-blackand-border divide-y divide-blackand-border">
           {items.map(({ product, quantity }) => {
             const resolvedImage = imageMap[product.image] ?? product.image;
             const itemSubtotal = Number(product.price) * Number(quantity);
             return (
-              <article key={product.id} className="p-4 flex gap-4 items-center">
+              <article key={product.id} className="p-6 flex gap-6 items-center">
                 <img
                   src={resolvedImage}
                   alt={product.title}
-                  className="w-20 h-20 object-cover rounded-lg border border-gray-200"
+                  className="w-24 h-24 object-cover border border-blackand-border"
                 />
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-gray-900 truncate">{product.title}</h3>
-                  <p className="text-sm text-gray-500">${Number(product.price).toFixed(2)} c/u</p>
-                  <p className="text-sm font-semibold text-gray-800 mt-1">
-                    Subtotal: ${itemSubtotal.toFixed(2)}
-                  </p>
+                  <h3 className="text-lg text-white font-light tracking-wide truncate">{product.title}</h3>
+                  <p className="text-sm text-blackand-text-secondary mt-1">${Number(product.price).toFixed(2)}</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center border border-blackand-border">
                   <button
                     type="button"
                     onClick={() => decrementItem(product.id)}
-                    className="w-8 h-8 rounded-lg border border-gray-300 hover:bg-gray-50"
+                    className="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
                   >
-                    -
+                    −
                   </button>
-                  <span className="w-8 text-center text-sm font-semibold">{quantity}</span>
+                  <span className="w-10 text-center text-sm text-white">{quantity}</span>
                   <button
                     type="button"
                     onClick={() => incrementItem(product.id)}
-                    className="w-8 h-8 rounded-lg border border-gray-300 hover:bg-gray-50"
+                    className="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
                   >
                     +
                   </button>
@@ -73,30 +70,30 @@ export default function Cart() {
                 <button
                   type="button"
                   onClick={() => removeItem(product.id)}
-                  className="text-sm text-red-600 hover:text-red-700"
+                  className="text-blackand-text-secondary hover:text-white transition-colors ml-4 p-2"
                 >
-                  Quitar
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                 </button>
               </article>
             );
           })}
         </div>
 
-        <aside className="bg-white rounded-2xl border border-gray-200 p-6 h-fit">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Resumen</h3>
-          <div className="flex justify-between text-gray-600 mb-3">
-            <span>Productos</span>
-            <span>{items.length}</span>
+        <aside className="bg-blackand-surface border border-blackand-border p-8 h-fit">
+          <h3 className="text-lg uppercase tracking-widest text-white mb-6 border-b border-blackand-border pb-4">Resumen</h3>
+          <div className="flex justify-between text-blackand-text-secondary text-sm mb-4">
+            <span>Subtotal ({items.length} items)</span>
+            <span>${total.toFixed(2)}</span>
           </div>
-          <div className="flex justify-between text-lg font-bold text-gray-900 mb-6">
+          <div className="flex justify-between text-white text-lg tracking-wide mb-8 pt-4 border-t border-blackand-border">
             <span>Total</span>
             <span>${total.toFixed(2)}</span>
           </div>
           <Link
             to="/checkout"
-            className="w-full inline-flex justify-center px-4 py-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:opacity-90"
+            className="btn-primary w-full"
           >
-            Ir a checkout
+            FINALIZAR COMPRA
           </Link>
         </aside>
       </div>
