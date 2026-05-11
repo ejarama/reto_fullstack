@@ -1,46 +1,17 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { subscribeToAuthChanges, logoutUser } from '../../../services/authService';
+import useUserStore from '../../../store/userStore';
 
 export default function Profile() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    /* 
-      // BACKUP: OLD LOCALSTORAGE METHOD
-      // const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
-      // setUser(loggedInUser);
-      // setLoading(false);
-    */
-
-    const unsubscribe = subscribeToAuthChanges((currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
+  const user = useUserStore((state) => state.currentUser);
+  const logoutUser = useUserStore((state) => state.logoutUser);
 
   const handleLogout = async () => {
     const result = await logoutUser();
     if (result.success) {
-      /*
-        // BACKUP: OLD LOCALSTORAGE METHOD
-        // localStorage.removeItem('loggedInUser');
-      */
       navigate('/login');
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
-      </div>
-    );
-  }
 
   if (!user) {
     return (

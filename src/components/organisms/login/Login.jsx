@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import smile from "../../../assets/smile.png";
-import { loginUser } from "../../../services/authService";
+import useUserStore from "../../../store/userStore";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,6 +10,7 @@ const Login = () => {
     password: ''
   });
   const [error, setError] = useState('');
+  const loginUser = useUserStore((state) => state.loginUser);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,21 +20,6 @@ const Login = () => {
     e.preventDefault();
     setError('');
 
-    /*
-    // Obtener usuarios registrados
-    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-    const allUsers = [...MOCK_USERS, ...registeredUsers];
-
-    // Buscar usuario
-    const user = allUsers.find(u => u.email === formData.email && u.password === formData.password);
-    if (user) {
-      // Login exitoso
-      localStorage.setItem('loggedInUser', JSON.stringify(user));
-      navigate('/gallery');
-    } else {
-      setError('Credenciales incorrectas.');
-    }
-      */
     const result = await loginUser(formData.email, formData.password);
     if (result.success) {
       navigate('/gallery');

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { registerFullUser } from "../../../services/authService";
+import useUserStore from "../../../store/userStore";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -13,6 +13,7 @@ const Register = () => {
     confirmPassword: ''
   });
   const [error, setError] = useState('');
+  const registerFullUser = useUserStore((state) => state.registerFullUser);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,34 +28,6 @@ const Register = () => {
       setError('Las contraseñas no coinciden.');
       return;
     }
-
-    /*
-    // Validar email único
-    const existingUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-    const allUsers = [...MOCK_USERS, ...existingUsers];
-    const emailExists = allUsers.some(user => user.email === formData.email);
-    if (emailExists) {
-      setError('El email ya está registrado.');
-      return;
-    }
-
-    // Crear nuevo usuario
-    const newUser = {
-      id: Date.now(), // ID único basado en timestamp
-      name: formData.name,
-      email: formData.email,
-      cellphone: formData.cellphone,
-      address: formData.address,
-      password: formData.password
-    };
-
-    // Guardar en localStorage
-    existingUsers.push(newUser);
-    localStorage.setItem('registeredUsers', JSON.stringify(existingUsers));
-
-    // Navegar a login
-    navigate('/login');
-    */
 
     const respuesta = await registerFullUser(formData);
 

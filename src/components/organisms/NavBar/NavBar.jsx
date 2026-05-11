@@ -1,36 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { subscribeToAuthChanges } from '../../../services/authService';
 import useCartStore from '../../../store/cartStore';
+import useUserStore from '../../../store/userStore';
 
 export default function NavBar() {
   const location = useLocation();
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const loggedInUser = useUserStore((state) => state.currentUser);
   const totalItems = useCartStore((state) => state.getTotalItems());
 
-  useEffect(() => {
-    /*
-      // BACKUP: OLD LOCALSTORAGE METHOD
-      // const user = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
-      // setLoggedInUser(user);
-    */
-    const unsubscribe = subscribeToAuthChanges((currentUser) => {
-      setLoggedInUser(currentUser);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
   const isActive = (path) => location.pathname === path;
-
-  /*
-    // BACKUP: OLD LOCALSTORAGE METHOD
-    // const handleLogout = () => {
-    //   localStorage.removeItem('loggedInUser');
-    //   setLoggedInUser(null);
-    //   navigate('/login');
-    // };
-  */
 
   return (
     <nav className="sticky top-0 z-50 bg-blackand-bg/80 backdrop-blur-md border-b border-blackand-border shadow-sm">
@@ -82,7 +59,7 @@ export default function NavBar() {
                       : 'text-blackand-text-secondary border-transparent hover:text-white hover:border-white/50'
                   }`}
                 >
-                  Profile
+                  Hola, {loggedInUser.displayName?.split(' ')[0] || 'Usuario'}
                 </Link>
               </li>
             ) : (
