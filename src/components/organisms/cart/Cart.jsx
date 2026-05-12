@@ -40,40 +40,46 @@ export default function Cart() {
             const resolvedImage = imageMap[product.image] ?? product.image;
             const itemSubtotal = Number(product.price) * Number(quantity);
             return (
-              <article key={product.id} className="p-6 flex gap-6 items-center">
-                <img
-                  src={resolvedImage}
-                  alt={product.title}
-                  className="w-24 h-24 object-cover border border-blackand-border"
-                />
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-lg text-white font-light tracking-wide truncate">{product.title}</h3>
-                  <p className="text-sm text-blackand-text-secondary mt-1">${Number(product.price).toFixed(2)}</p>
+              <article key={product.id} className="p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center">
+                <div className="flex gap-4 w-full sm:w-auto flex-1 min-w-0">
+                  <img
+                    src={resolvedImage}
+                    alt={product.title}
+                    className="w-20 h-20 sm:w-24 sm:h-24 object-cover border border-blackand-border shrink-0"
+                  />
+                  <div className="flex-1 min-w-0 flex flex-col justify-center">
+                    <h3 className="text-base sm:text-lg text-white font-light tracking-wide truncate">{product.title}</h3>
+                    <p className="text-sm text-blackand-text-secondary mt-1">${Number(product.price).toFixed(2)}</p>
+                  </div>
                 </div>
-                <div className="flex items-center border border-blackand-border">
+                
+                <div className="flex items-center justify-between w-full sm:w-auto mt-2 sm:mt-0">
+                  <div className="flex items-center border border-blackand-border">
+                    <button
+                      type="button"
+                      onClick={() => decrementItem(product.id)}
+                      className="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+                    >
+                      −
+                    </button>
+                    <span className="w-10 text-center text-sm text-white">{quantity}</span>
+                    <button
+                      type="button"
+                      onClick={() => incrementItem(product.id)}
+                      className="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+                    >
+                      +
+                    </button>
+                  </div>
                   <button
                     type="button"
-                    onClick={() => decrementItem(product.id)}
-                    className="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+                    onClick={() => removeItem(product.id)}
+                    className="text-blackand-text-secondary hover:text-white transition-colors p-2 sm:ml-4"
+                    title="Eliminar producto"
                   >
-                    −
-                  </button>
-                  <span className="w-10 text-center text-sm text-white">{quantity}</span>
-                  <button
-                    type="button"
-                    onClick={() => incrementItem(product.id)}
-                    className="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
-                  >
-                    +
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                   </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => removeItem(product.id)}
-                  className="text-blackand-text-secondary hover:text-white transition-colors ml-4 p-2"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-                </button>
               </article>
             );
           })}
